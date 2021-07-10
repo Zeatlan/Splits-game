@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>OpenXum</title>
+		<link rel="stylesheet" href="openxum.css">
+		<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+		<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+		<script type="module">
+			import OpenXum from "/lib/openxum-browser/index.mjs";
+
+window.OpenXum = OpenXum;
+		</script>
+		<script>
+			function onMoveList() {
+if (this.OpenXum.page !== null) {
+let body = $('#moveListBody');
+let moves = this.OpenXum.page.manager().get_moves();
+let list = $('<ol>');
+
+body.empty();
+moves.split(";").forEach((str) => {
+if (str !== '') {
+let item = $('<li>');
+let move = this.OpenXum.page.manager().build_move();
+
+move.decode(str);
+item.html(move.to_string());
+item.appendTo(list);
+}
+});
+list.appendTo(body);
+}
+}
+
+function onReplay() {
+if (this.OpenXum.page !== null) {
+let moves = this.OpenXum.page.manager().get_moves();
+
+this.OpenXum.page.reset();
+this.OpenXum.page.manager().replay(moves, true);
+}
+}
+
+function newGame(name) {
+let class_name = name.charAt(0).toUpperCase() + name.slice(1);
+
+console.log("CLASS NAME: " + class_name);
+
+if (OpenXum[class_name]) {
+this.OpenXum.page = new OpenXum.GamePage(OpenXum, OpenXum[class_name], name, OpenXum[class_name].Settings.colors.first, OpenXum[class_name].Settings.colors.init, OpenXum[class_name].Settings.opponent_color(OpenXum[class_name].Settings.colors.init), OpenXum[class_name].Settings.modes.init, '-1', OpenXum.GameType.GUI, '', '', false, OpenXum[class_name].Settings.ai.mcts, (winner) => {
+$('#winnerBodyText').html('<h4>The winner is ' + winner + '!</h4>');
+$("#winnerModal").modal("show");
+});
+}
+}
+		</script>
+	</head>
+	<body>
+
+		<div class="page">
+			<div class="container" id="main">
+				<br>
+				<div class="row">
+					<div class="col-sm-12">
+						<a class="btn btn-success btn-sm active" onclick="newGame('abande');">Abande</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('dakapo');">Dakapo</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('dvonn');">Dvonn</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('gipf');">Gipf</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('hnefatafl');">Hnefatafl</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('invers');">Invers</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('kamisado');">Kamisado</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('kikotsoka');">Kikotsoka</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('lyngk');">Lyngk</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('manalath');">Manalath</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('mixtour');">Mixtour</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('neutreeko');">Neutreeko</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('ordo');">Ordo</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('paletto');">Paletto</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('pentago');">Pentago</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('tintas');">Tintas</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('tzaar');">Tzaar</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('yinsh');">Yinsh</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('zertz');">Zertz</a>
+						<a class="btn btn-success btn-sm active" onclick="newGame('splits');">Splits</a>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-12" id="boardDiv">
+						<canvas id="board" style="width: 600px; height: 600px; padding-left: 0; padding-right: 0; margin-left: auto; margin-right: auto; display: block;"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<a class="btn btn-success btn-md active" id="status" href="#">Ready!</a>
+						<a class="btn btn-warning btn-md active" id="replay" href="#" onclick="onReplay();">Replay</a>
+						<a class="btn btn-danger btn-md active" id="list" href="#" data-toggle="modal" data-target="#moveListModal" onclick="onMoveList();">Move list</a>
+					</div>
+				</div>
+				<br>
+				<div class="modal fade" id="winnerModal" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button class="close" data-dismiss="modal">
+									<span aria-hidden="true">&times;</span>
+									<span class="sr-only">Close</span>
+								</button>
+							</div>
+							<div class="modal-body" id="winnerBodyText"></div>
+							<div class="modal-footer">
+								<div class="btn-group">
+									<a class="btn btn-primary active" href="#" onclick="$('#winnerModal').modal('hide'); newGame(window.OpenXum.page.name());">New game</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="moveListModal" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="moveListModalLabel">Move list</h4>
+								<button class="close" data-dismiss="modal">
+									<span aria-hidden="true">&times;</span>
+									<span class="sr-only">Close</span>
+								</button>
+							</div>
+							<div class="modal-body" id="moveListBody"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(document).ready(function () {
+OpenXum.page = null;
+});
+		</script>
+	</body>
+</html>

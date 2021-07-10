@@ -1,0 +1,16 @@
+{
+  "name": "openxum-core",
+  "author": {
+    "name": "Eric Ramat",
+    "email": "eric.ramat@gmail.com",
+    "url": "https://gitlab.com/eramat"
+  },
+  "description": "An open multi-platform turn-based strategy game framework",
+  "main": "index.mjs",
+  "license": "GPL-3.0",
+  "repository": {
+    "url": "https://gitlab.com/openxum/openxum-es6-games",
+    "type": "git"
+  },
+  "version": "0.0.48"
+}

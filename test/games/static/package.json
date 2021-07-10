@@ -1,0 +1,27 @@
+{
+  "name": "openxum-static",
+  "version": "1.0.0",
+  "description": "NodeJS application for OpenXum",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r @std/esm app.js"
+  },
+  "author": "Eric RAMAT",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@std/esm": "^0.19.7",
+    "bootstrap": "^4.6.0",
+    "express": "^4.17.1",
+    "jquery": "^3.6.0",
+    "openxum-browser": "0.0.36"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zeatlan/Splits-game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Zeatlan/Splits-game/issues"
+  },
+  "homepage": "https://github.com/Zeatlan/Splits-game#readme"
+}

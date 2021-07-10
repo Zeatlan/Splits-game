@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "@std/esm": "^0.19.7",
+    "jest": "^24.8.0"
+  }
+}

@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neutreeko: ThreeInConnectedRow</title>
+    <link rel="stylesheet" href="../../qunit.css">
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="module">
+      import Neutreeko from "/lib/openxum-core/games/neutreeko/index.mjs";
+      window.Neutreeko = Neutreeko;
+    </script>
+</head>
+<body>
+
+<div class="page">
+    <div class="container" id="main">
+        <div class="row">
+            <div id="qunit"></div>
+            <div id="qunit-fixture"></div>
+
+            <script src="../../qunit.js"></script>
+            <script id="script-qunit" src="../../script/neutreeko/test_three_in_connected_row.js"></script>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
